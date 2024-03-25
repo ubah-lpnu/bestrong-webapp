@@ -42,6 +42,6 @@ stages:
           $(tag)
     - task: AzureWebAppContainer@1
       inputs:
-        azureSubscription: 'Azure for Students(85bd95c0-eabe-403c-87b6-f72ae70ec867)'
+        azureSubscription: '$(AzureSubscription)'
         appName: 'bestrong-webapp'
         containers: '$(containerRegistry)/$(imageRepository):$(tag)'
