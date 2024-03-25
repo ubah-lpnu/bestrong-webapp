@@ -15,7 +15,7 @@ resources:
 - repo: self
 
 variables:
-  dockerRegistryServiceConnection: 'bcc0d91f-d7e7-4b75-b9f4-19bd958bdc9e'
+  dockerRegistryServiceConnection: '05aae339-4883-4d01-9a51-e896dd0de074'
   imageRepository: 'bestrongwebapp'
   containerRegistry: 'bestrong1.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
