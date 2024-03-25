@@ -20,7 +20,9 @@ variables:
   containerRegistry: 'bestrong1.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
-  vmImageName: 'ubuntu-latest'
+
+pool:
+  vmImage: 'ubuntu-latest'
 
 stages:
 - stage: Build
@@ -28,8 +30,6 @@ stages:
   jobs:
   - job: Build
     displayName: Build
-    pool:
-      vmImage: $(vmImageName)
     steps:
     - task: Docker@2
       displayName: Build and push an image to container registry
@@ -40,8 +40,17 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+
+- stage: Deploy
+  displayName: Deploy Docker image to App Service
+  dependsOn: Build
+  condition: and(succeeded('Build'), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - job: DeployJob
+    displayName: Deploy
+    steps:
     - task: AzureWebAppContainer@1
       inputs:
-        azureSubscription: '$(AzureSubscription)'
+        azureSubscription: 'Azure for Students(85bd95c0-eabe-403c-87b6-f72ae70ec867)'
         appName: 'bestrong-webapp'
         containers: '$(containerRegistry)/$(imageRepository):$(tag)'
