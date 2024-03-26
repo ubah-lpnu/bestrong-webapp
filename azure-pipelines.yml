@@ -15,9 +15,9 @@ resources:
 - repo: self
 
 variables:
-  dockerRegistryServiceConnection: '05aae339-4883-4d01-9a51-e896dd0de074'
-  imageRepository: 'bestrongwebapp'
-  containerRegistry: 'bestrong1.azurecr.io'
+  dockerRegistryServiceConnection: 'efdd7677-e8e8-4fc5-beaf-d9110dfe986e'
+  imageRepository: 'bestrong-image'
+  containerRegistry: 'bestrongregistry.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
 
@@ -52,5 +52,6 @@ stages:
     - task: AzureWebAppContainer@1
       inputs:
         azureSubscription: 'Azure for Students(85bd95c0-eabe-403c-87b6-f72ae70ec867)'
-        appName: 'bestrong-webapp'
+        appName: 'bestrong-web-app'
         containers: '$(containerRegistry)/$(imageRepository):$(tag)'
+    
